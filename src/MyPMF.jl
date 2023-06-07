@@ -1,9 +1,10 @@
-module MyPMF
-#Copyright (c) 2021 Ryuichi Okamoto <ryubee@gmail.com>
-#License: https://opensource.org/licenses/MIT
 """
 Module for calculating potential of mean force (PMF) on the basis of Jarzynski equality. Neccessary input is a set of sample trajactory data, specifically, the pulled coodinate and the external work as functions of time. 
 """
+module MyPMF
+#Copyright (c) 2021 Ryuichi Okamoto <ryubee@gmail.com>
+#License: https://opensource.org/licenses/MIT
+
 
 """
     pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=1000 ::Int64, energy_unit="kcal/mol" ::String)
