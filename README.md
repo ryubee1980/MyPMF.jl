@@ -15,7 +15,7 @@ pkg> add https://github.com/ryubee1980/MyPMF.jl.git
 # pmf_HS
 This function calculate PMF from a set of trajectories of pulled coordinate.
 ```sh
-pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=1000 ::Int64, energy_unit="kcal/mol" ::String)
+pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=500 ::Int64, energy_unit="kcal/mol" ::String)
 ```
 
 traj[:,:,:] is a 3-dimensional Array of the size K x T x 3, where K is the number of sample trajectories and T is the number of time slices. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.

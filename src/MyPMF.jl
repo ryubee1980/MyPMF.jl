@@ -19,7 +19,7 @@ module MyPMF
     The energy_unit must be either "kcal/mol" or "kJ/mol".
     The units of length (l), time (T) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, T=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and k=kJ/mol/nm^2.
 """
-function pmf_HS(traj,ks,v,T; L=1000,energy_unit="kcal/mol")
+function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol")
     
     if energy_unit=="kcal/mol"
         kT=T*0.593/298
