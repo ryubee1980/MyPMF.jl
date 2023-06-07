@@ -1,5 +1,11 @@
 # MyPMF
-Package for calculating potential of mean force (PMF) from data of steered molecular dynamics simulation. 
+Package for calculating potential of mean force (PMF) from data of steered molecular dynamics simulation. This code implements the method proposed in
+
+G. Hummer and A. Szabo, Proc. Nat. Acad. Sci. 98, 3658 (2001).
+
+The authors' approach is based on the Jarzynski equality:
+
+C. Jarzynski, Phys. Rev. Lett. 78, 2690 (1997).
 
 Copyright (c) 2021 Ryuichi Okamoto <<ryubee@gmail.com>>  
 License: https://opensource.org/licenses/MIT
