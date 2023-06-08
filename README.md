@@ -34,6 +34,6 @@ L is the number of output data points (default value is L=500).
 The energy_unit must be either "kcal/mol" or "kJ/mol" (kcal/mol by default).
 The units of length (l), time (T) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, T=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and k=kJ/mol/nm^2.
 
-If setting J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
+If J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
 
 [![Build Status](https://github.com/ryubee1980/MyPMF.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ryubee1980/MyPMF.jl/actions/workflows/CI.yml?query=branch%3Amain)
