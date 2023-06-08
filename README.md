@@ -24,7 +24,7 @@ This function calculate PMF from a set of trajectories of pulled coordinate.
 pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=500 ::Int64, energy_unit="kcal/mol" ::String, J_est=0)
 ```
 
-traj[:,:,:] is a 3-dimensional Array of the size K x T x 3, where K is the number of sample trajectories and T is the number of time slices. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
+traj[:,:,:] is a 3-dimensional Array of the size K x Ts x 3, where K is the number of sample trajectories and Ts is the number of time slices. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
 
 ks is the spring constant of biasing harmonic potential.
 v is the (linear) velocity of the biasing potential.
@@ -32,7 +32,7 @@ T is the absolute temperature in units of Kelvin (K).
 L is the number of output data points (default value is L=500).
 
 The energy_unit must be either "kcal/mol" or "kJ/mol" (kcal/mol by default).
-The units of length (l), time (T) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, T=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and k=kJ/mol/nm^2.
+The units of length (l), time (t) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, t=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and [ks]=kJ/mol/nm^2.
 
 If J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
 

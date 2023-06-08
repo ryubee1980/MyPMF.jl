@@ -9,7 +9,7 @@ module MyPMF
 """
     pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=1000 ::Int64, energy_unit="kcal/mol" ::String)
 
-    traj[:,:,:] is a 3-dimensional Array of the size K x T x 3, where K is the number of sample trajectories and T is the number of time slices. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
+    traj[:,:,:] is a 3-dimensional Array of the size K x Ts x 3, where K is the number of sample trajectories and Ts is the number of time slices. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
 
     ks is the spring constant of biasing harmonic potential.
     v is the (linear) velocity of the biasing potential.
@@ -17,7 +17,7 @@ module MyPMF
     L is the number of output data points.
 
     The energy_unit must be either "kcal/mol" or "kJ/mol".
-    The units of length (l), time (T) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, T=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and k=kJ/mol/nm^2.
+    The units of length (l), time (t) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, t=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and [ks]=kJ/mol/nm^2.
 
     If J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
 """
@@ -46,7 +46,7 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
 
     dl=vt[end]/L
 
-    T=length(t)
+    Ts=length(t)
     K=length(traj[:,1,1])
 
     
@@ -54,9 +54,9 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
 
     zz=@. window - dl*0.5
     
-    h=zeros(Float64,T,L)
+    h=zeros(Float64,Ts,L)
     for l in 1:L
-        for i in 1:T
+        for i in 1:Ts
             for k in 1:K
                 if window[l]-dl < z[k,i]-z[k,1] < window[l]
                     h[i,l]+=exp(-w[k,i]/kT)
@@ -68,18 +68,18 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
     @. h=h/K
 
     
-    u=Array{Float64}(undef,(T,L))
+    u=Array{Float64}(undef,(Ts,L))
 
     for l in 1:L
-        for i in 1:T
+        for i in 1:Ts
             
             u[i,l]=0.5*ks*(zz[l]-vt[i])^2
         end
     end
     
-    eta=zeros(Float64,T)
+    eta=zeros(Float64,Ts)
 
-    for i in 1:T
+    for i in 1:Ts
         for k in 1:K
             eta[i]+=exp(-w[k,i]/kT)
         end
@@ -90,7 +90,7 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
     for l in 1:L
         temp1=0
         temp2=0
-        for i in 1:T
+        for i in 1:Ts
             temp1+=h[i,l]/eta[i]
             temp2+=exp(-u[i,l]/kT)/eta[i]
         end
@@ -123,6 +123,7 @@ Essentially the same as pmf_HS, but the only difference is that pmf_HS_norm give
 """
 function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
     
+    
     if energy_unit=="kcal/mol"
         kT=T*0.593/298
     elseif energy_unit=="kJ/mol"
@@ -146,7 +147,7 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
 
     dl=vt[end]/L
 
-    T=length(t)
+    Ts=length(t)
     K=length(traj[:,1,1])
 
     
@@ -154,9 +155,9 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
 
     zz=@. window - dl*0.5
     
-    h=zeros(Float64,T,L)
+    h=zeros(Float64,Ts,L)
     for l in 1:L
-        for i in 1:T
+        for i in 1:Ts
             for k in 1:K
                 if window[l]-dl < z[k,i]-z[k,1] < window[l]
                     h[i,l]+=exp(-w[k,i]/kT)
@@ -168,18 +169,18 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
     @. h=h/K
 
     
-    u=Array{Float64}(undef,(T,L))
+    u=Array{Float64}(undef,(Ts,L))
 
     for l in 1:L
-        for i in 1:T
+        for i in 1:Ts
             
             u[i,l]=0.5*ks*(zz[l]-vt[i])^2
         end
     end
     
-    eta=zeros(Float64,T)
+    eta=zeros(Float64,Ts)
 
-    for i in 1:T
+    for i in 1:Ts
         for k in 1:K
             eta[i]+=exp(-w[k,i]/kT)
         end
@@ -190,7 +191,7 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0)
     for l in 1:L
         temp1=0
         temp2=0
-        for i in 1:T
+        for i in 1:Ts
             temp1+=h[i,l]/eta[i]
             temp2+=exp(-u[i,l]/kT)/eta[i]
         end
