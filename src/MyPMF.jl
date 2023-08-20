@@ -21,7 +21,7 @@ module MyPMF
 
     If J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
 """
-function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0, detail_out=0)
+function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,show_h=0, show_u=0)
     
     if energy_unit=="kcal/mol"
         kT=T*0.593/298
@@ -99,8 +99,14 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0, detail_out=0
 
     Gb=G[1]
 
-    if detail_out==1
-        @show h eta u
+    if show_h==1
+        @show h
+    end
+    if show_eta==1
+        @show eta
+    end
+    if show_u==1
+        @show u
     end
 
     if J_est==1
@@ -125,7 +131,7 @@ end
 """
 Essentially the same as pmf_HS, but the only difference is that pmf_HS_norm gives the PMF divided by the thermal energy k_BT.
 """
-function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,detail_out=0)
+function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,show_h=0, show_u=0)
     
     
     if energy_unit=="kcal/mol"
@@ -204,8 +210,14 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,detail_o
 
     Gb=G[1]
 
-    if detail_out==1
-        @show h eta u
+    if show_h==1
+        @show h
+    end
+    if show_eta==1
+        @show eta
+    end
+    if show_u==1
+        @show u
     end
 
     if J_est==1
