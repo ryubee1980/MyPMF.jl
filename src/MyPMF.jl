@@ -147,7 +147,7 @@ end
 """
 Essentially the same as pmf_HS, but the only difference is that pmf_HS_norm gives the PMF divided by the thermal energy k_BT.
 """
-function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,show_h=0, show_u=0,big_float=false)
+function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,show_h=0, show_u=0,Bool::big_float=false)
     
     
     if energy_unit=="kcal/mol"
