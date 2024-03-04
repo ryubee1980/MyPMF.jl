@@ -117,7 +117,11 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,sh
     end
 
     if J_est==1
-        tmp=zeros(length(vt))
+        if big_float==true
+            tmp=zeros(BigFloat,length(vt))
+        else
+            tmp=zeros(length(vt))
+        end
         for k in 1:K
             @. tmp += exp(-(w[k,:])/kT)
            
@@ -237,7 +241,11 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta
     end
 
     if J_est==1
-        tmp=zeros(length(vt))
+        if big_float==true
+            tmp=zeros(BigFloat,length(vt))
+        else
+            tmp=zeros(length(vt))
+        end
         for k in 1:K
             @. tmp += exp(-(w[k,:])/kT)
            
