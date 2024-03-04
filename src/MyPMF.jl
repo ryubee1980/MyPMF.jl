@@ -54,7 +54,12 @@ function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,sh
 
     zz=@. window - dl*0.5
     
-    h=zeros(Float64,Ts,L)
+    if big_float==true
+        h=zeros(BigFloat,Ts,L)
+    else
+        h=zeros(Float64,Ts,L)
+    end
+    
     for l in 1:L
         for i in 1:Ts
             for k in 1:K
@@ -169,6 +174,8 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta
     dl=vt[end]/L
 
     Ts=length(t)
+
+    
     K=length(traj[:,1,1])
 
     
@@ -176,7 +183,13 @@ function pmf_HS_norm(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta
 
     zz=@. window - dl*0.5
     
-    h=zeros(Float64,Ts,L)
+    if big_float==true
+        h=zeros(BigFloat,Ts,L)
+    else
+        h=zeros(Float64,Ts,L)
+    end
+
+
     for l in 1:L
         for i in 1:Ts
             for k in 1:K
