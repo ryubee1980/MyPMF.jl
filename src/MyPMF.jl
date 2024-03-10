@@ -20,6 +20,8 @@ module MyPMF
     The units of length (l), time (t) can be anything, but they should consistently be used for all the variables and parameters. For example, if we set l=nm, t=ps, and E=kJ/mol, then the units of velocity and the spring constant must be [v]=nm/ps and [ks]=kJ/mol/nm^2.
 
     If J_est=1, it will also calculate the Jarzynski estimation (default value is 0). That is, e^{-F/kT} is simply estimated as the arithmetic mean of e^{-w/kT}. Note that the free energy F estimated by this scheme is equal to the PMF only if the spring constant is large enough (stiff-spring limit).
+
+    When big_float=true, the PMF is calculated using BigFloat type. This may be necessary when the samples of accumulated works vary in a wide range, which leads to extremely large or small values of e^{-w/kT}.
 """
 function pmf_HS(traj,ks,v,T; L=500,energy_unit="kcal/mol", J_est=0,show_eta=0,show_h=0, show_u=0,big_float=false::Bool)
     
