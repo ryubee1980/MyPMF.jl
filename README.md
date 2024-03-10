@@ -24,7 +24,7 @@ This function calculate PMF from a set of trajectories of pulled coordinate.
 pmf_HS(traj::Array{Float64,3}, ks::Float64, v::Float64, T::Float64 ; L=500 ::Int64, energy_unit="kcal/mol" ::String, J_est=0)
 ```
 
-traj[:,:,:] is a 3-dimensional Array of the size K x Ts x 3, where K is the number of sample trajectories and Ts is the number of time slices. trj[i,:,1], trj[i,:,2], and trj[i,:,3] are the time, displacement of the steered degree of freedom, and the accumulated work, respectively, of the sample trajectory i. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
+traj[:,:,:] is a 3-dimensional Array of the size K x Ts x 3, where K is the number of sample trajectories and Ts is the number of time slices. trj[i,:,1], trj[i,:,2], and trj[i,:,3] are the time, displacement of the steered degree of freedom, and the accumulated work, respectively, of the sample trajectory i. The time and the displacement must start from 0. The time slices must be the same for all samples, traj[i,:,1]=traj[j,:,1] for all i and j.
 
 ks is the spring constant of biasing harmonic potential.
 v is the (linear) velocity of the biasing potential.
